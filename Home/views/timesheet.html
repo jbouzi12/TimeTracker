@@ -1,1 +1,193 @@
-timesheet.html
+<div>
+    <div class="row">
+        <div class="col-sm-9 col-md-9">
+            <h1>{{employee.name}}</h1>
+            <label>View By:</label>
+            <select ng-model="orderBy">
+                <option value="">Select:</option>
+                <option value="workDate">Date</option>
+                <option value="project">Project</option>
+                <option value="phase">Phase</option>
+            </select>
+            
+            <br />
+            <hr />
+            <h3 ng-hide="{{employee.timeEntries.length}}">No Entries To Date</h3>
+            <div class="panel panel-info" ng-repeat="timeEntry in employee.timeEntries | orderBy:orderBy">
+                  
+                  <div class="panel-heading">{{timeEntry.workDate | date: fullDate}} <button type="button" class="btn btn-default btn-sm" ng-click="isCollapsed = !isCollapsed">Edit</button></div>
+                  <div class="row">
+                      <div class="col-md-12">
+                          <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Hours</th>
+                                    <th>Project</th>
+                                    <th>Phase</th>
+                                    <th>Work Type</th>
+                                    <th>Modify Date</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{timeEntry.hours}}</td>
+
+                                    <td>{{timeEntry.project || 'N/A'}}</td>
+
+                                    <td>{{timeEntry.phase || 'N/A'}}</td>
+
+                                    <td>{{timeEntry.workType}}</td>
+
+                                    <td>{{(timeEntry.modifyDate || 'N/A') | date: fullDate}}</td>
+
+                                    <td>{{timeEntry.description}}</td>
+                                </tr>
+                            </tbody>
+                          </table>
+                      </div>
+                      <div collapse="isCollapsed" class="col-md-10 updateTime">
+                          <h3>Update Entry</h3>
+                          <form class=""role="form" ng-submit="updateTime(timeEntry)">
+                              <div class="row">
+                                  <div class="col-sm-6 col-md-6">
+                                      <div class="form-group">
+                                        <label>Hours Worked</label>
+                                        <input ng-model="timeEntry.hours" class="form-control col-xs-10" required type="number" placeholder="timeEntry.hours" />                
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-6 col-md-6">
+                                      <div class="form-group">
+                                        <label>Work Date</label>
+                                        <p class="input-group">
+                                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="timeEntry.workDate" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                            </span>
+                                        </p>    
+                                      </div>
+                                  </div>
+                              </div>          
+                              <div class="row" ng-show="{{timeEntry.project != null}}">
+                                  <div class="col-sm-6 col-md-6">
+                                      <div class="form-group">
+                                        <label>Project</label>
+                                        <select ng-model="timeEntry.project">
+                                            <option ng-repeat="project in projects()"value="{{project}}">{{project}}</option>
+                                        </select>
+                                      </div>
+                                  </div>                                 
+                                  <div class="col-sm-6 col-md-6" >
+                                      <div class="form-group">
+                                        <label>Work Type</label>
+                                        <select ng-model="timeEntry.workType">
+                                            <option ng-repeat="type in workTypes" value="{{type}}">{{type}}</option>
+                                        </select>
+                                      </div>
+                                  </div>
+                              </div> 
+                              <div class="row" ng-show="timeEntry.phase != null">
+                                  <div class="col-sm-6 col-md-6">
+                                      <div class="form-group">
+                                        <label>Phase</label>
+                                        <select ng-model="timeEntry.phase">
+                                            <option ng-repeat="phase in phases()" value="{{phase}}">{{phase}}</option>
+                                        </select>
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-6 col-md-6">
+                                      <div class="form-group" ng-show="timeEntry.phase != null">
+                                        <label>Work Type</label>
+                                        <select ng-model="timeEntry.workType">
+                                            <option ng-repeat="type in workTypes" value="{{type}}">{{type}}</option>
+                                        </select>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-md-12">
+                                      <div class="form-group">
+                                        <label>Description</label>
+                                        <textarea required ng-model="timeEntry.description" class="form-control" rows="2" value="timeEntry.descrption"></textarea>                                
+                                       </div>
+                                  </div>
+                                  
+                              </div>                                
+                              
+                              <button type="submit" class="btn btn-success">Submit</button>
+                          </form>
+                      </div>
+                  </div>
+                </div>
+
+                <!-- New Time Entry Form -->
+                <div class="assignment-form-container">
+                    
+                </div>
+        </div><!-- main col -->
+        <div class="col-sm-3 col-md-3">
+            <div class="panel panel-default employee-stats">
+                <div class="panel-heading">
+                    <h2>Statistics</h2>
+                    <h3><span class="label label-primary">Total Hours: {{employee.totalTime}}</span></h3>
+                    <h3><span class="label label-primary">Total Entries: {{employee.timeEntries.length}}</span></h3>
+                </div>      
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="glyphicon glyphicon-plus pull-right"></i>
+                        <h4>Add Entry</h4>
+                    </div>
+                    
+                </div>
+                <div class="panel-body">
+                    <form class="assignment-form" name="timesheetForm" ng-submit="addTime(entry)" ng-hide="systemIsLocked" nonvalidate>                
+                        <div class="form-group" ng-hide="entry.phase != null">
+                        <br />
+                            <label>Project</label><br />
+                            <select class="form-control" ng-model="entry.project">
+                                <option value="">Select...</option>
+                                <option ng-repeat="project in projects()"value="{{project}}">{{project}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group" ng-hide="entry.project != null">
+                            <!--<br />-->
+                            <label>Phase</label><br />
+                            <select class="form-control" ng-model="entry.phase">
+                                <option value="">Select...</option>
+                                <option ng-repeat="phase in phases()"value="{{phase}}">{{phase}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="phaseTechnology">Work Type</label><br />
+                            <select class="form-control" required ng-model="entry.workType">
+                                <option value="">Select...</option>
+                                <option ng-repeat="type in workTypes" value="{{type}}">{{type}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Hours Worked</label><br />
+                            <input class="form-control" required type="number" ng-model="entry.hours" placeholder="0" />
+                        </div>
+                        <div class="form-group">
+                            <label>Work Date</label><br />
+                            <p class="input-group entryDate">
+                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="entry.workDate" is-open="status.opened"  max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </p>            
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea required ng-model="entry.description" class="form-control" rows="2" placeholder="Description..."></textarea>
+            
+                        </div>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </form>
+                </div>               
+            </div>
+        </div>
+    </div><!-- row -->
+</div>
