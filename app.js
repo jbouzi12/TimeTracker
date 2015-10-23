@@ -13,10 +13,10 @@ function () {
             url: '/',
             views: {
                 'header': {
-                    templateUrl: '/app/Home/header.html'
+                    templateUrl: '/app/Home/views/header.html'
                 },
                 'content': {
-                    templateUrl: '/app/Home/home.html',
+                    templateUrl: '/app/Home/views/home.html',
                     controller: 'homeController'
                 },
                 'footer': {
@@ -28,7 +28,7 @@ function () {
            url: '/:name',
            views: {
                'timesheet@home': {
-                   templateUrl: '/app/Home/timesheet.html',
+                   templateUrl: '/app/Home/views/timesheet.html',
                    controller: 'timeEntryController'
                }
            }
