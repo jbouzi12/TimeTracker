@@ -1,4 +1,4 @@
-function () {
+(function() {
     angular.module('underscore', [])
        .factory('_', function () {
            return window._;
@@ -13,14 +13,14 @@ function () {
             url: '/',
             views: {
                 'header': {
-                    templateUrl: '/app/Home/views/header.html'
+                    templateUrl: 'Home/views/header.html'
                 },
                 'content': {
-                    templateUrl: '/app/Home/views/home.html',
+                    templateUrl: 'Home/views/home.html',
                     controller: 'homeController'
                 },
                 'footer': {
-                    templateUrl: '/app/Home/footer.html'
+                    templateUrl: 'Home/views/footer.html'
                 }
             }
         })

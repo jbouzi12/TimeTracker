@@ -1,7 +1,7 @@
 (function () {
 
     angular.module('taskTracker')
-    .controller('homeController', ['$scope', '$stateParams', 'databaseService', function ($scope, $stateParams, databaseService) {
+    .controller('homeController', ['$scope', '$stateParams', function($scope, $stateParams) {
         $scope.name = '';
         $scope.animate = false;
 
