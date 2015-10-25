@@ -37,14 +37,14 @@
             url: '/admin',
             views: {
                 'header': {
-                    templateUrl:'/app/Admin/partials/header.html'
+                    templateUrl:'admin/views/header.html'
                 },
                 'content': {
-                    templateUrl: '/app/Admin/partials/content.html',
+                    templateUrl: 'admin/views/content.html',
                     controller: 'adminController'
                 },
                 'footer': {
-                    templateUrl:'/app/Admin/partials/footer.html'
+                    templateUrl:'admin/views/footer.html'
                 }
             },
 
