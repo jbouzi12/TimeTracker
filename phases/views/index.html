@@ -1,0 +1,81 @@
+<div ui-view="detail">
+    <div class="row">
+        <div class="col-sm-2 col-md-2 sidebar-offcanvas" id="sidebar">
+           <ul class="nav nav-sidebar">
+
+              <li class="active"><a ui-sref="admin">Dashboard</a></li>
+              <li><a href="#">Settings</a></li>
+              <li><a href="#">Configuration</a></li>
+              <li><a href="#">Account</a></li>
+              <li><a href="">Reports</a></li>
+              <li><a href="">Analysis</a></li>
+              <li><a href="">One more nav</a></li>
+              <li><a href="">Another nav item</a></li>
+            </ul>
+            <hr />
+            <form class="form-inline" role="search">
+                <div class="input-group">
+                    <input type="text" ng-model="query" class="form-control" placeholder="Find by client...">
+                    <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                </div>
+             </form>
+            <hr />
+            <div class="well">
+                <a href="#">
+                    <i class="glyphicon glyphicon-envelope"></i>
+                    Notifications
+                    <span class="badge pull-right">{{clients.length}}</span>
+                </a> 
+            </div>
+        </div><!--Side Nav Bar -->
+        <div class="col-sm-9 col-md-9 main">
+            <h1>Phases</h1>
+             <hr />
+             <div class="phase-info" ng-repeat="phase in phases | filter:{client: query}">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><strong>{{phase.client}}</strong></h4>
+                    </div>
+                    <div class="row panel-body">
+                        <div class="col-sm-4 col-md-4">
+                            <p><strong>Name: </strong>{{phase.name}}</p>
+                            <p><strong>Description: </strong>{{phase.description}}</p>
+                            <p><strong>Project: </strong>{{phase.project}}</p>
+                            <p><strong>Approved by: </strong>{{phase.approver}}</p>
+                            <p><strong>Status: </strong>{{phase.status}}</p>
+                            <p><strong>Start: </strong>{{phase.start | date:fullDate}}</p>
+                            <p><strong>End: </strong>{{(phase.end || 'N/A') | date:fullDate}}</p>
+                            <p><strong>Technology: </strong>{{phase.technology}}</p>
+                            <p><strong>Work Type: </strong>{{phase.workType}}</p>
+                        </div>
+                        <div class="col-sm-8 col-md-8 table-responsive">
+                            <h4>Assignments:</h4>
+                            <table ng-show="phase.assignments.length" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                            <th>#</th>
+                                            <th>Employee</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Hourly Rate</th>
+                                            <th>Practice</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="assignment in phase.assignments">
+                                            <td>{{phase.assignments.indexOf(assignment) + 1}}</td>
+                                            <td>{{assignment.employee}}</td>
+                                            <td>{{assignment.start | date: fullDate}}</td>
+                                            <td>{{assignment.end | date: fullDate}}</td>
+                                            <td>70</td>
+                                            <td>{{assignment.practice}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div><!-- table Container -->
+                        </div><!--row/panel body-->
+                    </div><!--entire panel -->
+                </div><!-- ng-repeat of phases -->
+        </div><!-- Main Content -->
+    </div><!-- row -->
+</div>
