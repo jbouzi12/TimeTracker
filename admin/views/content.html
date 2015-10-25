@@ -1,0 +1,70 @@
+<div ui-view="content">
+    <div class="row">
+        <div class="col-sm-2 col-md-2 sidebar-offcanvas" id="sidebar">
+           <ul class="nav nav-sidebar">
+
+              <li class="active"><a ui-sref="admin">Dashboard</a></li>
+              <li><a href="#">Settings</a></li>
+              <li><a href="#">Configuration</a></li>
+              <li><a href="#">Account</a></li>
+              <li><a href="">Reports</a></li>
+              <li><a href="">Analysis</a></li>
+              <li><a href="">One more nav</a></li>
+              <li><a href="">Another nav item</a></li>
+            </ul>
+            <hr />
+            <form class="form-inline" role="search">
+                <div class="input-group">
+                    <input type="text" ng-model="query" class="form-control" placeholder="Begin typing...">
+                    <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                </div>
+             </form>
+            <hr />
+            <div class="well">
+                <a href="#">
+                    <i class="glyphicon glyphicon-envelope"></i>
+                    Notifications
+                    <span class="badge pull-right">{{clients.length}}</span>
+                </a>
+            </div>
+        </div><!--sidebar nav -->
+        <div class="col-sm-9 col-md-9 main">
+            <div class="row">
+                <h1>TimeSheet Overview</h1>
+                <hr />
+            </div>
+            <div class="row">
+                <br />
+                <accordion ng-repeat="employee in employees | filter:{name:query} | orderBy: 'name'" is-open="status.isItemOpen[$index]">
+                   <accordion-group >
+                       <accordion-heading>
+                           {{employee.name}}<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isItemOpen[0], 'glyphicon-chevron-right': !status.isItemOpen[0]}"></i>
+                       </accordion-heading>
+                       <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Title</th>
+                            <th>Num of Assignments</th>
+                            <th>Num of Timesheets</th>
+                            <th>Total Hours</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>{{employee.title}}</td>
+                            <td>{{employee.assignments.length}}</td>
+                            <td>{{employee.timeEntries.length}}</td>
+                            <td>{{employee.totalTime || 0}}</td>
+                          </tr>
+                          <tr>
+                        </tbody>
+                      </table>
+                   </accordion-group>
+                </accordion> 
+            </div>
+        </div><!-- main content-->
+    </div><!-- /.row -->
+    <br />
+   
+    
+</div>
