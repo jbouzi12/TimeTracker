@@ -28,7 +28,7 @@
            url: '/:name',
            views: {
                'timesheet@home': {
-                   templateUrl: '/app/Home/views/timesheet.html',
+                   templateUrl: 'Home/views/timesheet.html',
                    controller: 'timeEntryController'
                }
            }
