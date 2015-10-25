@@ -1,0 +1,172 @@
+<div ui-view="detail">
+    <div class="row">
+        <div class="col-sm-2 col-md-2 sidebar-offcanvas" id="sidebar">
+           <ul class="nav nav-sidebar">
+
+              <li class="active"><a ui-sref="admin">Dashboard</a></li>
+              <li><a href="#">Settings</a></li>
+              <li><a href="#">Configuration</a></li>
+              <li><a href="#">Account</a></li>
+              <li><a href="">Reports</a></li>
+              <li><a href="">Analysis</a></li>
+              <li><a href="">One more nav</a></li>
+              <li><a href="">Another nav item</a></li>
+            </ul>
+            <hr />
+            <form class="form-inline" role="search">
+                <div class="input-group">
+                    <input type="text" ng-model="query" class="form-control" placeholder="Find by client...">
+                    <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                </div>
+             </form>
+            <hr />
+            <div class="well">
+                <a href="#">
+                    <i class="glyphicon glyphicon-envelope"></i>
+                    Notifications
+                    <span class="badge pull-right">{{clients.length}}</span>
+                </a>
+            </div>
+        </div><!--Side Nav Bar -->
+
+        <div class="col-sm-9 col-md-9 main">
+            <h1>Projects</h1>
+                <hr />
+<!--                <div id="projects" ng-repeat="c in clients | filter:hasProjects">-->
+                    <div class="project-info" ng-repeat="project in projects | filter:{client: query}">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4><strong>{{project.client}}</strong></h4>
+                            </div>
+                            <div class="row panel-body">
+                                <div class="col-sm-4 col-md-4">
+                                    <p><strong>Title: </strong>{{project.name}}</p>
+                                    <p><strong>Description: </strong>{{project.description}}</p>
+                                    <p><strong>Approved by: </strong>{{project.approver}}</p>
+                                    <p><strong>Status: </strong>{{project.status}}</p>
+                                    <p><strong>Start: </strong>{{project.start | date:fullDate}}</p>
+                                    <p><strong>End: </strong>{{(project.end || 'N/A') | date:fullDate}}</p>
+                                    <p><strong>Technology: </strong>{{project.technology}}</p>
+                                    <p><strong>Work Type: </strong>{{project.workType}}</p>
+                                    <p class="active"><span class="badge for-client">Phases: {{project.phases.length}}</span></p>
+                                    </div>
+                                    <div class="col-sm-8 col-md-8 table-responsive">
+                                        <h4>Assignments:</h4>
+                                        <table ng-show="project.assignments.length" class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Employee</th>
+                                                    <th>Start Date</th>
+                                                    <th>End Date</th>
+                                                    <th>Hourly Rate</th>
+                                                    <th>Practice</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="assignment in project.assignments">
+                                                    <td>{{project.assignments.indexOf(assignment) + 1}}</td>
+                                                    <td>{{assignment.employee}}</td>
+                                                    <td>{{assignment.start | date: fullDate}}</td>
+                                                    <td>{{assignment.end | date: fullDate}}</td>
+                                                    <td>{{assignment.rate || 70}}</td>
+                                                    <td>{{assignment.practice}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!-- table Container -->
+                                </div><!--Row/Panel Body-->
+                                <div class="row add-item">
+                                    <div class="col-md-8 col-sm-8">
+                                        <button type="button" class="btn btn-default btn-sm" ng-click="isCollapsed = !isCollapsed">Add Phase</button>
+                                        <div collapse="isCollapsed">
+                                            <form class="phase-form" ng-submit="assignPhase(c, project, phase)">
+                                                <div class="form-group">
+                                                    <br />
+                                                    <label for="phaseName">Name</label>
+                                                    <input required type="text" ng-model="phase.name" class="form-control" placeholder="Name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="phaseDescription">Description</label>
+                                                    <textarea required ng-model="phase.description" class="form-control" placeholder="Enter description..."></textarea>                                                  
+                                                </div>
+                                               <div class="row">
+                                                    <div class="col-sm-6 col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Technology</label><br />
+                                                            <select required ng-model="phase.technology">
+                                                                <option value="">Select...</option>
+                                                                <option ng-repeat="technology in technologies" value="{{technology}}">{{technology}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Status</label><br />
+                                                            <select required ng-model="phase.status">
+                                                                <option value="">Select...</option>
+                                                                <option value="active">Active.</option>
+                                                                <option value="inactive">Inactive</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- row -->                             
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label>Approver</label><br />
+                                                            <select required ng-model="phase.approver">
+                                                                <option value="">Select...</option>
+                                                                <option ng-repeat="approver in approvers" value="{{approver}}">{{approver}}</option>
+                                                            </select>
+                                                        </div>                                        
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 ">
+                                                        <div class="form-group">
+                                                            <label>Work Type</label><br />
+                                                            <select required ng-model="phase.workType">
+                                                                <option value="">Select...</option>
+                                                                <option ng-repeat="type in workTypes" value="{{type}}">{{type}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- row -->
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label>Start Date</label>
+                                                        <p class="input-group">
+                                                          <input required type="text" class="form-control" datepicker-popup="{{format}}" ng-model="phase.start" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                                          <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                          </span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label>End Date</label>
+                                                        <p class="input-group">
+                                                          <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="phase.end" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="false" close-text="Close" />
+                                                          <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                          </span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-success">Submit</button>
+                                                <button type="button" class="btn btn-danger" ng-click="isCollapsed = !isCollapsed">Cancel</button>
+                                            </form>
+                                        </div><!--form container-->
+                                    </div><!-- col -->
+                                    
+                                </div><!--row -->
+
+                            </div>
+                        </div>
+                  
+                                    
+                    </div><!-- project in clients ng-repeat-->
+                </div><!-- clients Ng-repeat-->
+
+        </div><!-- Main content -->
+    </div><!-- row -->
+  
+</div>
