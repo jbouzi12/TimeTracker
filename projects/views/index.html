@@ -79,7 +79,7 @@
                                 <div class="row add-item">
                                     <div class="col-md-8 col-sm-8">
                                         <button type="button" class="btn btn-default btn-sm" ng-click="isCollapsed = !isCollapsed">Add Phase</button>
-                                        <div collapse="isCollapsed">
+                                        <div uib-collapse="isCollapsed">
                                             <form class="phase-form" ng-submit="assignPhase(c, project, phase)">
                                                 <div class="form-group">
                                                     <br />
@@ -135,7 +135,7 @@
                                                     <div class="col-md-6">
                                                         <label>Start Date</label>
                                                         <p class="input-group">
-                                                          <input required type="text" class="form-control" datepicker-popup="{{format}}" ng-model="phase.start" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                                          <input required type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="phase.start" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
                                                           <span class="input-group-btn">
                                                             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                                           </span>
@@ -144,7 +144,7 @@
                                                     <div class="col-md-6">
                                                         <label>End Date</label>
                                                         <p class="input-group">
-                                                          <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="phase.end" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="false" close-text="Close" />
+                                                          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="phase.end" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="false" close-text="Close" />
                                                           <span class="input-group-btn">
                                                             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                                           </span>
