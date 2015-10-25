@@ -49,7 +49,7 @@
                         
                         <!-- Add project to Client form -->
                         
-                        <div collapse="isCollapsed" class="project-form-container">
+                        <div uib-collapse="isCollapsed" class="project-form-container">
                             <h3>Add Project</h3>
                             <form class="projects-form" ng-submit="assignProject(c, project)">
                                 <div class="form-group">
@@ -105,7 +105,7 @@
                                     <div class="col-md-6">
                                         <label>Start Date</label>
                                         <p class="input-group">
-                                          <input required type="text" class="form-control" datepicker-popup="{{format}}" ng-model="project.start" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                          <input required type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="project.start" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
                                           <span class="input-group-btn">
                                             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                           </span>
@@ -114,7 +114,7 @@
                                     <div class="col-md-6">
                                         <label>End Date</label>
                                         <p class="input-group">
-                                          <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="project.end" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="false" close-text="Close" />
+                                          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="project.end" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="false" close-text="Close" />
                                           <span class="input-group-btn">
                                             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                           </span>
