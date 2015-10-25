@@ -1,4 +1,4 @@
-function() {
+(function() {
 
     angular.module('taskTracker')
     .controller('employeeController', ['$scope', '$stateParams', 'databaseService', function ($scope, $stateParams, databaseService) {
