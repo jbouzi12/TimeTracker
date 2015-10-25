@@ -54,7 +54,7 @@
             url: '/clients',
             views: {
                 'content@': {
-                    templateUrl: '/app/Client/index.html',
+                    templateUrl: 'clients/views/index.html',
                     controller: 'clientsController'
                 }
             }
@@ -64,7 +64,7 @@
             url: '/:id',
             views: {
                 'detail@admin.clients': {
-                    templateUrl: '/app/Client/show.html'
+                    templateUrl: 'clients/views/show.html'
                 }
             }
         })
@@ -72,7 +72,7 @@
             url: '/projects',
             views: {
                 'content@': {
-                    templateUrl: '/app/Project/index.html',
+                    templateUrl: 'projects/views/index.html',
                     controller: 'projectsController'
                 }
             }
@@ -82,15 +82,15 @@
             url: '/:id',
             views: {
                 'detail@admin.projects': {
-                    templateUrl: '/app/Project/show.html'
-                } //Issue with the back button in this route, can't resolve admin.projects.detail
+                    templateUrl: 'projects/views/show.html'
+                } 
             }
         })
         .state('admin.phases', {
            url: '/phases',
             views: {
                 'content@': {
-                    templateUrl: '/app/Phase/index.html',
+                    templateUrl: 'phases/views/index.html',
                     controller: 'phasesController'
                 }
             }
@@ -100,7 +100,7 @@
             url: '/:id',
             views: {
                 'detail@admin.phases': {
-                    templateUrl: '/app/Phase/show.html'
+                    templateUrl: 'phases/views/show.html'
                 }
             }
         })
@@ -108,7 +108,7 @@
             url: '/employees',
             views: {
                 'content@': {
-                    templateUrl: '/app/Employee/index.html',
+                    templateUrl: 'employees/views/index.html',
                     controller: 'employeeController'
                 }
             }
@@ -117,7 +117,7 @@
             url: '/:id',
             views: {
                 'detail@admin.employees': {
-                    templateUrl: '/app/Employee/show.html'
+                    templateUrl: 'employees/views/show.html'
                 }
             }
         })
