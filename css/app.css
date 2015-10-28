@@ -1,0 +1,14 @@
+/*Nav Menu and Header*/
+#main-header {
+	background-color: rgb(4, 91, 163);
+	padding: 1.5em;
+	color: white;
+}
+
+.nav-tabs.nav-justified {
+	background-color: rgb(76, 156, 234);
+}
+
+.nav-tabs.nav-justified a {
+	color: white;
+}
