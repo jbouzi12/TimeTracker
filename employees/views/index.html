@@ -1,0 +1,181 @@
+<div ui-view="detail">
+    <div class="row">
+        <div class="col-sm-2 col-md-2 sidebar-offcanvas" id="sidebar" role="navigation">
+            <ul class="nav nav-sidebar">
+
+              <li class="active"><a ui-sref="admin">Dashboard</a></li>
+              <li><a href="#">Settings</a></li>
+              <li><a href="#">Configuration</a></li>
+              <li><a href="#">Account</a></li>
+              <li><a href="">Reports</a></li>
+              <li><a href="">Analysis</a></li>
+              <li><a href="">One more nav</a></li>
+              <li><a href="">Another nav item</a></li>
+            </ul>
+            <hr />
+            <form class="form-inline" role="search">
+                <div class="input-group">
+                    <input type="text" ng-model="query" class="form-control" placeholder="Begin typing...">
+                    <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                </div>
+             </form>
+            <hr />
+            <div class="well">
+                <a href="#">
+                    <i class="glyphicon glyphicon-envelope"></i>
+                    Notifications
+                    <span class="badge pull-right">{{clients.length}}</span>
+                </a>
+            </div>
+        </div><!-- left sidebar -->
+
+        <div class="col-sm-6 col-md-6 main">
+            <h1>Employee Management</h1>
+            <hr />
+            <accordion ng-repeat="employee in employees | filter:{name:query} | orderBy: 'name'" is-open="statustemOpen[$index]">
+               <accordion-group >
+                   <accordion-heading>
+                       {{employee.name}}<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isIten[0], 'glyphicon-chevron-right': !status.isItemOpen[0]}"></i>
+                   </accordion-heading>
+                   <div class="row">
+                       <div class="col-sm-6 col-md-6">
+                           <i class="fa fa-user fa-5x"></i>
+                           <h4>{{employee.title}}</h4>
+                       </div>
+                       <div class="col-sm-6 col-md-6">
+                           <ul class="nav nav-pills nav-stacked">
+                               <li role="presentation" class="active"><a href="#">Total Hours: <span class="badge pull-right">{{employee.totalTime || 0}}</span></a></li>
+                               <li role="presentation" class="active"><a href="#">Time Entries: <span class="badge pull-right">{{employee.timeEntries.length}}</span></a></li>
+                           </ul>
+                       </div>
+                   </div>
+                     
+                   <div class="table-responsive">
+                       <p>Assignments:</p>
+                       <table class="table table-striped" ng-show="employee.assignments.length">
+                         <thead>
+                           <tr>
+                             <th>#</th>
+                             <th>Project</th>
+                             <th>Phase</th>
+                             <th>Start Date</th>
+                             <th>End Date</th>
+                             <th>Hourly Rate</th>
+                             <th>Practice</th>
+                           </tr>
+                         </thead>
+                         <tbody>
+                           <tr ng-repeat="assignment in employee.assignments">
+                             <td>{{employee.assignments.indexOf(assignment) + 1}}</td>
+                             <td>{{assignment.project || 'N/A'}}</td>
+                             <td>{{assignment.phase || "N/A"}}</td>
+                             <td>{{assignment.start | date:fullDate}}</td>
+                             <td>{{assignment.end | date:fullDate}}</td>
+                             <td>{{assignment.rate || 70}}</td>
+                             <td>{{assignment.practice}}</td>
+                           </tr>
+                           <tr>
+                         </tbody>
+                       </table>
+                   </div>
+                  <div class="row add-item assignment">
+                    <div class="col-md-12 col-sm-12">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="isCollapsed = !isCollapsed">Assign Employee</button>
+                        <div collapse="isCollapsed">
+                            <h3>Assign to Project/Phase</h3>
+                            <form class="phase-form" ng-submit="assignEmployee(assignment, employee)">
+                                <div class="row">
+                                    <br />
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group" ng-hide="assignment.phase != null">
+                                            <label>Project</label><br />
+                                            <select ng-model="assignment.project">
+                                                <option value="">Select...</option>
+                                                <option ng-repeat="project in projects"value="{{project.name}}">{{project.name}}</tion>
+                                            </select>
+                                        </div>
+                                    </div>
+                                  <div class="col-sm-6 col-md-6">
+                                    <div class="form-group" ng-hide="assignment.project != null">
+                                        <label>Phase</label><br />
+                                        <select ng-model="assignment.phase">
+                                            <option value="">Select...</option>
+                                            <option ng-repeat="phase in phases"value="{{phase.name}}">{{phase.name}}</option>
+                                        </select>
+                                    </div>
+                                  </div>
+                                 </div><!-- row -->
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group">
+                                            <label for="phaseTechnology">Practice</label><br />
+                                            <select required ng-model="assignment.practice">
+                                                <option value="">Select...</option>
+                                                <option ng-repeat="practice in practices" value="{{practice}}">{{practice}}</option>
+                                            </select>
+                                        </div>
+                                    </div>   
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group">
+                                            <label for="phaseTechnology">Hourly Rate</label><br />
+                                            <input type="number" ng-model="assignment.rate" placeholder="0" />
+                                        </div>
+                                    </div>                               
+                                 </div><!-- row -->                                                                                             
+                                 <div class="row">
+                                     <div class="col-md-6">
+                                         <label>Start Date</label>
+                                         <p class="input-group">
+                                           <input required type="text" class="form-control" datepicker-popup="{{format}}" ng-model="assignment.start" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                           <span class="input-group-btn">
+                                             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                           </span>
+                                         </p>
+                                 </div>
+                                 <div class="col-md-6">
+                                    <label>End Date</label>
+                                    <p class="input-group">
+                                      <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="assignment.end" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="false" close-text="Close" />
+                                      <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                      </span>
+                                    </p>
+                                 </div>
+                             </div>
+                             <button type="submit" class="btn btn-success">Submit</button>
+                             <button type="button" class="btn btn-danger" ng-click="isCollapsed = !isCollapsed">Cancel</button>
+                         </form>
+                     </div><!--form container-->
+                    </div><!-- col -->                                    
+                  </div><!--row -->                 
+               </accordion-group>
+            </accordion> 
+        </div><!-- main content -->
+        <div class="col-sm-3 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="glyphicon glyphicon-plus pull-right"></i>
+                        <h4>Add an Employee</h4>
+                    </div>
+                    
+                </div>
+                <div class="panel-body">
+                    <form class="form form-vertical" ng-submit="addEmployee(employee)">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input required name="clientName" ng-model="employee.name" type="text" class="form-control" placeholder="Enter name...">
+               
+                        </div>
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input required class="form-control" ng-model="employee.title" placeholder="Enter Title..." />
+                        </div>
+                        <button type="submit" class="btn btn-success">Add</button>
+                    </form>
+                </div>
+                
+            </div>
+        </div><!-- right side items -->
+    </div><!-- Main row -->    
+</div>
