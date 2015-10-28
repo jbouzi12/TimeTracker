@@ -3,7 +3,6 @@
        .factory('_', function () {
            return window._;
        });
-
     angular.module('taskTracker', ['ui.router', 'ngStorage', 'ui.bootstrap', 'ngAnimate', 'underscore'])
     .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
