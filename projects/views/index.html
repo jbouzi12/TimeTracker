@@ -32,7 +32,10 @@
         <div class="col-sm-9 col-md-9 main">
             <h1>Projects</h1>
                 <hr />
-<!--                <div id="projects" ng-repeat="c in clients | filter:hasProjects">-->
+                <div ng-show="projects.length === 0" class="row">
+                    <h3>There are currently no projects in the system</h3>
+                    <p>Please add projects for your clients</p>
+                </div>
                     <div class="project-info" ng-repeat="project in projects | filter:{client: query}">
                         <div class="panel panel-default">
                             <div class="panel-heading">
