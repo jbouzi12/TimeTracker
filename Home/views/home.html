@@ -10,10 +10,10 @@
                 
             <form class="form-inline">
                 <div class="form-group">
-                  <input ng-model="name" type="text" class="form-control" placeholder="Enter full name...">
+                  <input ng-model="myName" type="text" ng-change="validateName(myName)" class="form-control" placeholder="Enter full name...">
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control" placeholder="Password...">
+                  <input type="password" ng-model="myPassword" class="form-control" ng-change="validateName(myName, myPassword)" placeholder="Password...">
                 </div>
                 <div class="checkbox">
                   <label>
@@ -21,7 +21,7 @@
                   </label>
                 </div>
                 <button type="button" class="btn btn-danger" ng-click="toggleOpen()">Close</button>
-                <a type="button" class="btn btn-success" ui-sref="home.timesheet({name: name})" data-dismiss="modal">Sign In</a>             
+                <a ng-show="validName" type="button" class="btn btn-success" ui-sref="home.timesheet({name: myName})" data-dismiss="modal">Sign In</a>             
             </form>
             
         </div>                     
