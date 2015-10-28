@@ -32,6 +32,11 @@
         <div class="col-sm-6 col-md-6 main">
             <h1>Employee Management</h1>
             <hr />
+            <div ng-show="employees.length === 0" class="row">
+                <h3>There are currently no employees in the system</h3>
+                <p>Please add employees</p>
+            </div>
+
             <accordion ng-repeat="employee in employees | filter:{name:query} | orderBy: 'name'" is-open="statustemOpen[$index]">
                <accordion-group >
                    <accordion-heading>
