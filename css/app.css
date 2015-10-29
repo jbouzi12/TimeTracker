@@ -10,8 +10,20 @@ a {
 
 .nav-tabs.nav-justified {
 	background-color: rgb(23, 79, 132);
+	margin-bottom: 2em;
 }
 
 .nav-tabs.nav-justified a {
 	color: white;
+}
+nav>.nav>li>a:focus, nav>.nav>li>a:hover {
+	background-color: #082C4D;
+	border:none;
+}
+
+/*Admin Sidebar*/
+.page-buffer {
+	height: 5px;
+	padding-bottom: 2em;
+	padding-top: 2em;
 }
