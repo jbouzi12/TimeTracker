@@ -21,7 +21,7 @@
                   </label>
                 </div>
                 <button type="button" class="btn btn-danger" ng-click="toggleOpen()">Close</button>
-                <a ng-show="validName" type="button" class="btn btn-success" ui-sref="home.timesheet({name: myName})" data-dismiss="modal">Sign In</a>             
+                <a ng-disabled="isDisabled" type="button" class="btn btn-success" ui-sref="home.timesheet({name: myName})" data-dismiss="modal">Sign In</a>             
             </form>
             
         </div>                     

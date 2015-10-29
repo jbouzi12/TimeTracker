@@ -4,7 +4,7 @@
     .controller('homeController', ['$scope', '$stateParams', 'databaseService', function($scope, $stateParams, databaseService) {
         $scope.name = '';
         $scope.animate = false;
-        $scope.validName = false;
+        $scope.isDisabled = true;
         $scope.employees = databaseService.getData('employees');
         $scope.validateName = validateName;
 
@@ -16,12 +16,11 @@
         };
 
         function validateName(name, password){
-            console.log('name', name);
             var employee = _.where($scope.employees, {name: name});
-            console.log('employee', employee);
-            if (employee.length === 1 && password.length) {
-                $scope.validName = true;
+            if (employee.length === 1 && password.length >=5) {
+                $scope.isDisabled = false;
             }
-        }
+        };
+
     }]);
 })();
