@@ -1,6 +1,18 @@
 a {
 	color: white;
 }
+.container.page-view, .row.page-view {
+	padding-bottom: 3em !important;
+
+}
+.row.add-item {
+	margin-left: 0px;
+	margin-bottom: 10px;
+}
+.col-md-10.updateTime {
+	margin-left: .5em;
+	margin-bottom: .8em;
+}
 /*Nav Menu and Header*/
 #main-header {
 	background-color: rgb(4, 91, 163);
