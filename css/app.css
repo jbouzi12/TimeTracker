@@ -22,8 +22,6 @@ nav>.nav>li>a:focus, nav>.nav>li>a:hover {
 }
 
 /*Admin Sidebar*/
-.page-buffer {
-	height: 5px;
-	padding-bottom: 2em;
-	padding-top: 2em;
+.sidebar-offcanvas{
+	background-color: whitesmoke;
 }
