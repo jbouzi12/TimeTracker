@@ -1,5 +1,5 @@
 <div ui-view="detail">
-    <div class="row">
+    <div class="row page-view">
         <div class="col-sm-2 col-md-2 sidebar-offcanvas" id="sidebar" role="navigation">
            <ul class="nav nav-sidebar">
 
@@ -34,6 +34,11 @@
         <div id="clients" class="col-sm-6 col-md-6 main">
             <h1>Clients</h1>
             <hr />
+            <div ng-show="clients.length === 0" class="row">
+                <h3>There are currently no clients in the system</h3>
+                <p>Please add clients</p>
+            </div>
+
             <div class="client-info panel" ng-repeat="c in clients | filter:query | orderBy: 'name' ">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="/#/admin/clients#about" data-toggle="tab" data-target="#about"aria-expanded="true">{{c.name}}</a></li>
@@ -160,3 +165,4 @@
     </div>
 
 </div>
+<div class="page-buffer"></div>
