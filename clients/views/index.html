@@ -1,6 +1,6 @@
-<div ui-view="detail">
+<div ui-view="content">
     <div class="row page-view">
-        <div class="col-sm-2 col-md-2 sidebar-offcanvas" id="sidebar" role="navigation">
+        <div class="col-sm-2 col-md-2 sidebar-offcanvas" id="sidebar">
            <ul class="nav nav-sidebar">
 
               <li class="active"><a ui-sref="admin">Dashboard</a></li>
@@ -27,142 +27,49 @@
                     <span class="badge pull-right">{{clients.length}}</span>
                 </a>
             </div>
-
-        </div>
-        <!-- Main clients content -->
-
-        <div id="clients" class="col-sm-6 col-md-6 main">
-            <h1>Clients</h1>
-            <hr />
-            <div ng-show="clients.length === 0" class="row">
-                <h3>There are currently no clients in the system</h3>
-                <p>Please add clients</p>
+        </div><!--sidebar nav -->
+        <div class="col-sm-9 col-md-9 main">
+            <div class="row">
+                <h1>TimeSheet Overview</h1>
+                <hr />
             </div>
-
-            <div class="client-info panel" ng-repeat="c in clients | filter:query | orderBy: 'name' ">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="/#/admin/clients#about" data-toggle="tab" data-target="#about"aria-expanded="true">{{c.name}}</a></li>
-                    <li></li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane well active" id="about">
-                        <h4>About</h4>
-                        <p>{{c.description}}</p>
-                        <p class="active"><span class="badge for-client">Projects {{c.projects.length}}</span></p>
-
-                        <button type="button" class="btn btn-default btn-sm" ng-click="isCollapsed = !isCollapsed">Add Project</button>
-                        
-                        <!-- Add project to Client form -->
-                        
-                        <div uib-collapse="isCollapsed" class="project-form-container">
-                            <h3>Add Project</h3>
-                            <form class="projects-form" ng-submit="assignProject(c, project)">
-                                <div class="form-group">
-                                    <label for="projectName">Name</label>
-                                    <input required type="text" ng-model="project.name" class="form-control" placeholder="Name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="projectDescription">Description</label>
-                                    <textarea required ng-model="project.description" class="form-control" placeholder="Enter description..."></textarea>                                   
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <label for="projectTechnology">Technology</label><br />
-                                            <select required ng-model="project.technology">
-                                                <option value="">Select...</option>
-                                                <option ng-repeat="technology in technologies" value="{{technology}}">{{technology}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <label>Status</label><br />
-                                            <select required ng-model="project.status">
-                                                <option value="">Select...</option>
-                                                <option value="active">Active.</option>
-                                                <option value="inactive">Inactive</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div><!-- row -->                             
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-6">
-                                        <div class="form-group">
-                                            <label>Approver</label><br />
-                                            <select required ng-model="project.approver">
-                                                <option value="">Select...</option>
-                                                <option ng-repeat="approver in approvers" value="{{approver}}">{{approver}}</option>
-                                            </select>
-                                        </div>                                        
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 ">
-                                        <div class="form-group">
-                                            <label>Work Type</label><br />
-                                            <select required ng-model="project.workType">
-                                                <option value="">Select...</option>
-                                                <option ng-repeat="type in workTypes" value="value">{{type}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div><!-- row -->
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Start Date</label>
-                                        <p class="input-group">
-                                          <input required type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="project.start" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-                                          <span class="input-group-btn">
-                                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                                          </span>
-                                        </p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>End Date</label>
-                                        <p class="input-group">
-                                          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="project.end" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="false" close-text="Close" />
-                                          <span class="input-group-btn">
-                                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                                          </span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-success">Submit</button>
-                                <button type="button" class="btn btn-danger" ng-click="isCollapsed = !isCollapsed">Cancel</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+            <div ng-show="employees.length === 0" class="row">
+                <h3>There are no employees in the system</h3>
+                <p>Please visit the employees page and add employees</p>
             </div>
-        </div>
-        <div class="col-sm-3 col-md-3">
-
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="panel-title">
-                        <i class="glyphicon glyphicon-plus pull-right"></i>
-                        <h4>Add a Client</h4>
-                    </div>
-                    
-                </div>
-                <div class="panel-body">
-                    <form class="form form-vertical" ng-submit="addClient(client)">
-                        <div class="form-group">
-                            <label for="clientName">Name</label>
-                            <input required name="clientName" ng-model="client.name" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter client name...">
-               
-                        </div>
-                        <div class="form-group">
-                            <label for="clientDescription">Description</label>
-                             <textarea required class="form-control" ng-model="client.description" rows="3" name="clientDescription" placeholder="Enter description..."></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-success">Add</button>
-                    </form>
-                </div>
-                
+            <div class="row">
+                <br />
+                <accordion ng-repeat="employee in employees | filter:{name:query} | orderBy: 'name'" is-open="status.isItemOpen[$index]">
+                   <accordion-group >
+                       <accordion-heading>
+                           {{employee.name}}<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isItemOpen[0], 'glyphicon-chevron-right': !status.isItemOpen[0]}"></i>
+                       </accordion-heading>
+                       <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Title</th>
+                            <th>Num of Assignments</th>
+                            <th>Num of Timesheets</th>
+                            <th>Total Hours</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>{{employee.title}}</td>
+                            <td>{{employee.assignments.length}}</td>
+                            <td>{{employee.timeEntries.length}}</td>
+                            <td>{{employee.totalTime || 0}}</td>
+                          </tr>
+                          <tr>
+                        </tbody>
+                      </table>
+                   </accordion-group>
+                </accordion> 
             </div>
-
-        </div>
-    </div>
-
+        </div><!-- main content-->
+    </div><!-- /.row -->
+    <br />
+   
+    
 </div>
 <div class="page-buffer"></div>
