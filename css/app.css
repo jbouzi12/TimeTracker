@@ -1,0 +1,42 @@
+a {
+	color: white;
+}
+.container.page-view, .row.page-view {
+	padding-bottom: 3em !important;
+
+}
+.row.add-item {
+	margin-left: 0px;
+	margin-bottom: 10px;
+}
+.col-md-10.updateTime {
+	margin-left: .5em;
+	margin-bottom: .8em;
+}
+.col-md-9.main {
+	margin-left: 10px;
+}
+/*Nav Menu and Header*/
+#main-header {
+	background-color: rgb(4, 91, 163);
+	padding: 1.5em;
+	color: white;
+}
+
+.nav-tabs.nav-justified {
+	background-color: rgb(23, 79, 132);
+	margin-bottom: 2em;
+}
+
+.nav-tabs.nav-justified a {
+	color: white;
+}
+nav>.nav>li>a:focus, nav>.nav>li>a:hover {
+	background-color: #082C4D;
+	border:none;
+}
+
+/*Admin Sidebar*/
+.sidebar-offcanvas{
+	background-color: whitesmoke;
+}
