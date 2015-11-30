@@ -1,5 +1,5 @@
 <div ui-view="content">
-    <div class="row">
+    <div class="row page-view">
         <div class="col-sm-2 col-md-2 sidebar-offcanvas" id="sidebar">
            <ul class="nav nav-sidebar">
 
@@ -32,6 +32,10 @@
             <div class="row">
                 <h1>TimeSheet Overview</h1>
                 <hr />
+            </div>
+            <div ng-show="employees.length === 0" class="row">
+                <h3>There are no employees in the system</h3>
+                <p>Please visit the employees page and add employees</p>
             </div>
             <div class="row">
                 <br />
@@ -68,3 +72,4 @@
    
     
 </div>
+<div class="page-buffer"></div>
