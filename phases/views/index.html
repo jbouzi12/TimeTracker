@@ -1,5 +1,5 @@
 <div ui-view="detail">
-    <div class="row">
+    <div class="row page-view">
         <div class="col-sm-2 col-md-2 sidebar-offcanvas" id="sidebar">
            <ul class="nav nav-sidebar">
 
@@ -31,6 +31,11 @@
         <div class="col-sm-9 col-md-9 main">
             <h1>Phases</h1>
              <hr />
+             <div ng-show="phases.length === 0" class="row">
+                <h3>There are currently no phases in the system</h3>
+                <p>Please visit the projects page and add a phase to any of the projects</p>
+            </div>
+
              <div class="phase-info" ng-repeat="phase in phases | filter:{client: query}">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -79,3 +84,4 @@
         </div><!-- Main Content -->
     </div><!-- row -->
 </div>
+<div class="page-buffer"></div>
